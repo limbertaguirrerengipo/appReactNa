@@ -1,13 +1,4 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React from 'react';
-import type {Node} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -25,8 +16,19 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import {  DefaultTheme } from '@react-navigation/native';
+import AppRouters from './src/navigation/appRouters'
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: '#0C1C46',
+    secondary:'#36A9E1',
+    accent: '#EB5C72',
+  },
+};
 
-const App: () => Node = () => {
+const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
@@ -34,29 +36,8 @@ const App: () => Node = () => {
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-      
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-
-          <Text style={styles.highlight}>App.js</Text> 
-      
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <AppRouters Mytheme={MyTheme} />
   );
 };
-
-const styles = StyleSheet.create({
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;
