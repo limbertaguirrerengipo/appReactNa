@@ -10,3 +10,15 @@
   -- ejecutar el devtool en el power shell , levantar
   
      react-devtools
+--------------------------------------------
+-instalamos flip
+
+antes instalar por powershell en
+
+choco install openssl
+
+
+https://snack.expo.dev/
+
+--menu hamburguesa
+ https://snack.expo.dev/

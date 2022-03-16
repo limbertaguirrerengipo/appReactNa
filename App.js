@@ -8,14 +8,17 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
-
 import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+    Colors,
+    DebugInstructions,
+    Header,
+    LearnMoreLinks,
+    ReloadInstructions,
+  } from 'react-native/Libraries/NewAppScreen';
+  
+import { Provider as StoreProvider } from 'react-redux';
+import configureStore from './src/redux/store';
+
 import {  DefaultTheme } from '@react-navigation/native';
 import AppRouters from './src/navigation/appRouters'
 const MyTheme = {
@@ -27,7 +30,7 @@ const MyTheme = {
     accent: '#EB5C72',
   },
 };
-
+const store = configureStore();
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
@@ -36,7 +39,9 @@ const App = () => {
   };
 
   return (
-    <AppRouters Mytheme={MyTheme} />
+    <StoreProvider store={store}>
+       <AppRouters Mytheme={MyTheme} />
+    </StoreProvider>
   );
 };
 

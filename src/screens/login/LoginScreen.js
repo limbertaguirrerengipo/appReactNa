@@ -1,11 +1,12 @@
 
-import React from 'react';
+import React, { useState, useEffect }  from 'react';
 import {
     SafeAreaView,
     ScrollView,
     StatusBar,
     StyleSheet,
     Text,
+    TouchableOpacity,
     useColorScheme,
     View,
     Image,
@@ -18,16 +19,33 @@ import {
     LearnMoreLinks,
     ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import { Card, Input  } from "react-native-elements";
+import { Card, Input,Button   } from "react-native-elements";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import {loginSession} from '../../redux/actions/loginActions';
+import { useDispatch, useSelector } from 'react-redux';
 
 const LoginScreen = () => {
-    
+    const dispatch = useDispatch();
+    const [userName, onChangeUserName] = useState('');
+    const [password, onChangePassword] = useState('');
+
     const isDarkMode = useColorScheme() === 'dark';
     const backgroundStyle = {
         backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
     };
-    console.log('el estilo es : ',isDarkMode);
+      const _handleChangeUser = (text) => {
+        onChangeUserName(text);
+    };
+
+    const _handleChangePassword = (text) => {
+     onChangePassword(text);
+    };
+    const handleSubmitLogin =  () => {
+        console.log('clicl ');
+       dispatch(loginSession(userName, password));
+    };
+
+
     return (
         <SafeAreaView style={backgroundStyle}>
             <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
@@ -66,6 +84,8 @@ const LoginScreen = () => {
                         leftIconContainerStyle={{}}
                         rightIconContainerStyle={{}}
                         placeholder="Usuario"
+                        onChangeText={_handleChangeUser}
+                        value={userName}
                         />
                         <Input
                         containerStyle={{}}
@@ -83,8 +103,30 @@ const LoginScreen = () => {
                         rightIconContainerStyle={{}}
                         placeholder="Contraseña"
                         secureTextEntry={true}
+                        value={password}
+                        onChangeText={_handleChangePassword}
+                        />
+                        <Button
+                        buttonStyle={{ width: 150 }}
+                        containerStyle={{ margin: 5 }}
+                        disabledStyle={{
+                            borderWidth: 2,
+                            borderColor: "#00F"
+                        }}
+                        disabledTitleStyle={{ color: "#00F" }}
+                        linearGradientProps={null}
+                       // icon={<Icon name="react" size={15} color="#0FF" />}
+                        iconContainerStyle={{ background: "#000" }}
+                        loadingProps={{ animating: true }}
+                        loadingStyle={{}}
+                        onPress={handleSubmitLogin}
+                        title="Ingresar"
+                        titleProps={{}}
+                        titleStyle={{ marginHorizontal: 5 }}
                         />
                     </View>
+ 
+                    
                     </Card>
                 </View>
             </ScrollView>
@@ -109,7 +151,13 @@ const styles = StyleSheet.create({
     contenedor: {
         position: "relative",
         alignItems: "center"
-    }
+    },
+    iconStyle: {
+        padding: 12,
+    },
+    colorInputText: {
+        color: '#FFF',
+      },
 });
 
 export default LoginScreen;
